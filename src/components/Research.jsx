@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileCheck2, Clock, ArrowUpRight, Mail } from 'lucide-react';
 import { researchData } from '../data/research';
+import ScrollReveal from './ScrollReveal';
 
 export default function Research() {
   const [activeTab, setActiveTab] = useState('all');
@@ -11,53 +12,66 @@ export default function Research() {
       ? researchData.filter(r => !r.isOngoing) 
       : researchData.filter(r => r.isOngoing);
 
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
+  };
+
   return (
     <section id="research" className="py-24 px-6 lg:px-8 max-w-7xl mx-auto border-t border-obsidian-border">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-        <div>
-          <div className="flex items-center space-x-2 text-champagne-400 font-mono text-xs tracking-[0.2em] uppercase mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-champagne-400" />
-            <span>07 / SCHOLARLY INQUIRY</span>
+      <ScrollReveal direction="up">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <div className="flex items-center space-x-2 text-champagne-400 font-mono text-xs tracking-[0.2em] uppercase mb-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-champagne-400" />
+              <span>07 / SCHOLARLY INQUIRY</span>
+            </div>
+            <h2 className="font-display text-3xl sm:text-5xl text-ivory tracking-wider uppercase font-semibold">
+              Research & Publications
+            </h2>
           </div>
-          <h2 className="font-display text-3xl sm:text-5xl text-ivory tracking-wider uppercase font-semibold">
-            Research & Publications
-          </h2>
+          <p className="font-mono text-xs text-ivory-muted max-w-md tracking-wide">
+            Investigating sustainable public computing frameworks and carbon-aware distributed AI architectures.
+          </p>
         </div>
-        <p className="font-mono text-xs text-ivory-muted max-w-md tracking-wide">
-          Investigating sustainable public computing frameworks and carbon-aware distributed AI architectures.
-        </p>
-      </div>
+      </ScrollReveal>
 
       {/* Filter Tabs */}
-      <div className="flex items-center space-x-2 mb-10 border-b border-obsidian-border pb-4">
-        {[
-          { key: 'all', label: 'All Investigations' },
-          { key: 'published', label: 'Published Papers' },
-          { key: 'ongoing', label: 'Ongoing Research' }
-        ].map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
-            className={`px-4 py-2 rounded font-mono text-xs tracking-wider uppercase transition-colors ${
-              activeTab === tab.key
-                ? 'bg-champagne-500/15 text-champagne-300 border border-champagne-500/30'
-                : 'text-ivory-muted hover:text-ivory hover:bg-obsidian-900'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+      <ScrollReveal direction="up" delay={100}>
+        <div className="flex items-center space-x-2 mb-10 border-b border-obsidian-border pb-4">
+          {[
+            { key: 'all', label: 'All Investigations' },
+            { key: 'published', label: 'Published Papers' },
+            { key: 'ongoing', label: 'Ongoing Research' }
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`px-4 py-2 rounded font-mono text-xs tracking-wider uppercase transition-all duration-200 ${
+                activeTab === tab.key
+                  ? 'bg-champagne-500/20 text-champagne-300 border border-champagne-500/40 shadow-sm'
+                  : 'text-ivory-muted hover:text-ivory hover:bg-obsidian-900'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </ScrollReveal>
 
       {/* Research Cards */}
       <div className="space-y-8">
-        {filteredResearch.map((item) => (
-          <div
-            key={item.id}
-            id={item.id}
-            className="glass-panel glass-panel-hover rounded-2xl p-8 sm:p-10 border border-obsidian-border relative overflow-hidden"
-          >
+        {filteredResearch.map((item, index) => (
+          <ScrollReveal key={item.id} direction="up" delay={index * 120}>
+            <div
+              id={item.id}
+              onMouseMove={handleMouseMove}
+              className="card-spotlight glass-panel glass-panel-hover rounded-2xl p-8 sm:p-10 border border-obsidian-border relative overflow-hidden transition-all duration-300"
+            >
             {/* Top Bar: Status Badge + Venue + Year */}
             <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-obsidian-border mb-6">
               <div className="flex items-center space-x-3">
@@ -119,15 +133,16 @@ export default function Research() {
               <div>
                 <a
                   href={`mailto:hemadri.bhatnagar07@gmail.com?subject=Inquiry: Research on ${encodeURIComponent(item.title)}`}
-                  className="inline-flex items-center space-x-2 text-xs font-mono text-champagne-300 hover:text-ivory transition-colors"
+                  className="inline-flex items-center space-x-2 text-xs font-mono text-champagne-300 hover:text-ivory transition-colors group/link"
                 >
                   <Mail className="w-3.5 h-3.5" />
                   <span>Request Full Preprint / Manuscript</span>
-                  <ArrowUpRight className="w-3 h-3" />
+                  <ArrowUpRight className="w-3 h-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                 </a>
               </div>
             </div>
           </div>
+        </ScrollReveal>
         ))}
       </div>
     </section>

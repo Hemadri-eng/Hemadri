@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CustomCursor from './components/CustomCursor';
 import BackgroundAmbient from './components/BackgroundAmbient';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -48,6 +49,9 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-obsidian-950 text-ivory selection:bg-champagne-500/20 selection:text-champagne-200">
+      {/* Luxury Custom Cursor (Desktop only, spring inertia) */}
+      <CustomCursor />
+
       {/* Subtle Cinematic Background */}
       <BackgroundAmbient />
 

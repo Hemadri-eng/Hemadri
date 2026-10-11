@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Image as ImageIcon, X, Maximize2, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import { galleryCategories, galleryData } from '../data/gallery';
+import ScrollReveal from './ScrollReveal';
 
 export default function Gallery() {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -59,44 +60,48 @@ export default function Gallery() {
   return (
     <section id="gallery" className="py-24 px-6 lg:px-8 max-w-7xl mx-auto border-t border-obsidian-border">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-        <div>
-          <div className="flex items-center space-x-2 text-champagne-400 font-mono text-xs tracking-[0.2em] uppercase mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-champagne-400" />
-            <span>09 / VISUAL ARCHIVE</span>
+      <ScrollReveal direction="up">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <div className="flex items-center space-x-2 text-champagne-400 font-mono text-xs tracking-[0.2em] uppercase mb-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-champagne-400" />
+              <span>09 / VISUAL ARCHIVE</span>
+            </div>
+            <h2 className="font-display text-3xl sm:text-5xl text-ivory tracking-wider uppercase font-semibold">
+              Gallery & Moments
+            </h2>
           </div>
-          <h2 className="font-display text-3xl sm:text-5xl text-ivory tracking-wider uppercase font-semibold">
-            Gallery & Moments
-          </h2>
+          <p className="font-mono text-xs text-ivory-muted max-w-md tracking-wide">
+            A living photographic archive documenting collegiate hackathons, lab research sessions, athletic meets, and campus life.
+          </p>
         </div>
-        <p className="font-mono text-xs text-ivory-muted max-w-md tracking-wide">
-          A living photographic archive documenting collegiate hackathons, lab research sessions, athletic meets, and campus life.
-        </p>
-      </div>
+      </ScrollReveal>
 
       {/* Category Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-obsidian-border">
-        {galleryCategories.map((category) => {
-          const count = category === 'All' 
-            ? galleryData.length 
-            : galleryData.filter(i => i.category.toLowerCase() === category.toLowerCase()).length;
+      <ScrollReveal direction="up" delay={100}>
+        <div className="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-obsidian-border">
+          {galleryCategories.map((category) => {
+            const count = category === 'All' 
+              ? galleryData.length 
+              : galleryData.filter(i => i.category.toLowerCase() === category.toLowerCase()).length;
 
-          return (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-3.5 py-1.5 rounded text-xs font-mono tracking-wider uppercase transition-all duration-200 flex items-center space-x-2 ${
-                selectedCategory === category
-                  ? 'bg-champagne-500/20 text-champagne-300 border border-champagne-500/40 shadow-sm'
-                  : 'bg-obsidian-950/60 text-ivory-muted hover:text-ivory border border-obsidian-border'
-              }`}
-            >
-              <span>{category}</span>
-              <span className="text-[10px] opacity-60">({count})</span>
-            </button>
-          );
-        })}
-      </div>
+            return (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-3.5 py-1.5 rounded text-xs font-mono tracking-wider uppercase transition-all duration-200 flex items-center space-x-2 ${
+                  selectedCategory === category
+                    ? 'bg-champagne-500/20 text-champagne-300 border border-champagne-500/40 shadow-sm'
+                    : 'bg-obsidian-950/60 text-ivory-muted hover:text-ivory border border-obsidian-border'
+                }`}
+              >
+                <span>{category}</span>
+                <span className="text-[10px] opacity-60">({count})</span>
+              </button>
+            );
+          })}
+        </div>
+      </ScrollReveal>
 
       {/* Gallery Grid or Graceful Empty State */}
       {filteredItems.length === 0 ? (
@@ -112,11 +117,11 @@ export default function Gallery() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems.map((item, index) => (
-            <div
-              key={item.id}
-              onClick={() => setActiveImageIndex(index)}
-              className="group relative rounded-xl overflow-hidden glass-panel border border-obsidian-border cursor-pointer transition-all duration-300 hover:border-champagne-500/40 hover:shadow-xl hover:shadow-black/60"
-            >
+            <ScrollReveal key={item.id} direction="up" delay={index * 70}>
+              <div
+                onClick={() => setActiveImageIndex(index)}
+                className="group relative rounded-xl overflow-hidden glass-panel border border-obsidian-border cursor-pointer transition-all duration-300 hover:border-champagne-500/40 hover:shadow-xl hover:shadow-black/60 h-full"
+              >
               {/* Image Container with Aspect Ratio */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-obsidian-950">
                 <img
@@ -164,6 +169,7 @@ export default function Gallery() {
                 </div>
               </div>
             </div>
+          </ScrollReveal>
           ))}
         </div>
       )}

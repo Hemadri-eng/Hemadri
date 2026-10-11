@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUp } from 'lucide-react';
 import { profileData } from '../data/profile';
+import ScrollReveal from './ScrollReveal';
 
 export default function Footer({ onOpenResume }) {
   const scrollToTop = () => {
@@ -9,7 +10,8 @@ export default function Footer({ onOpenResume }) {
 
   return (
     <footer className="border-t border-obsidian-border bg-obsidian-950 py-16 px-6 lg:px-8 text-ivory">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <ScrollReveal direction="up">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         {/* Left: Monogram and identity */}
         <div className="space-y-2">
           <div className="flex items-center space-x-3">
@@ -63,6 +65,7 @@ export default function Footer({ onOpenResume }) {
         <span>© {new Date().getFullYear()} Hemadri Bhatnagar. All rights reserved.</span>
         <span>Crafted with mathematical intent & precision.</span>
       </div>
+      </ScrollReveal>
     </footer>
   );
 }

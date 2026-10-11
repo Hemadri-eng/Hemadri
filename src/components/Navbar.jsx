@@ -23,7 +23,7 @@ export default function Navbar({ onOpenResume }) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
 
-      // Simple active section detection
+      // Active section detection
       const sections = navLinks.map(link => link.href.substring(1));
       const scrollPosition = window.scrollY + 200;
 
@@ -51,9 +51,9 @@ export default function Navbar({ onOpenResume }) {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
           scrolled 
-            ? 'bg-obsidian-950/85 backdrop-blur-md border-b border-obsidian-border py-3 shadow-lg shadow-black/40' 
+            ? 'bg-obsidian-950/90 backdrop-blur-xl border-b border-champagne-500/20 py-3 shadow-2xl shadow-black/60' 
             : 'bg-transparent py-5'
         }`}
       >
@@ -61,10 +61,10 @@ export default function Navbar({ onOpenResume }) {
           {/* Logo / Monogram */}
           <a 
             href="#" 
-            className="group flex items-center space-x-3 text-ivory transition-opacity hover:opacity-90"
+            className="group flex items-center space-x-3 text-ivory transition-opacity hover:opacity-95"
             aria-label="Hemadri Bhatnagar Portfolio Home"
           >
-            <div className="w-8 h-8 rounded border border-champagne-500/40 bg-obsidian-900 flex items-center justify-center font-display text-xs tracking-wider text-champagne-400 group-hover:border-champagne-400 transition-colors">
+            <div className="relative w-8 h-8 rounded border border-champagne-500/50 bg-obsidian-900 flex items-center justify-center font-display text-xs tracking-wider text-champagne-300 group-hover:border-champagne-400 group-hover:shadow-[0_0_15px_rgba(197,168,128,0.3)] transition-all">
               HB
             </div>
             <div className="flex flex-col">
@@ -78,8 +78,8 @@ export default function Navbar({ onOpenResume }) {
             </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden xl:flex items-center space-x-7">
+          {/* Desktop Navigation with Animated Pill/Indicator */}
+          <nav className="hidden xl:flex items-center space-x-6">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
               return (
@@ -90,15 +90,15 @@ export default function Navbar({ onOpenResume }) {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
-                  className={`font-mono text-[11px] tracking-[0.16em] uppercase transition-all duration-200 relative py-1 ${
+                  className={`font-mono text-[11px] tracking-[0.16em] uppercase transition-all duration-300 relative py-1 px-1.5 ${
                     isActive 
-                      ? 'text-champagne-400 font-semibold' 
+                      ? 'text-champagne-300 font-semibold' 
                       : 'text-ivory-muted hover:text-ivory'
                   }`}
                 >
-                  {link.name}
+                  <span className="relative z-10">{link.name}</span>
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-champagne-500/80 rounded-full" />
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-champagne-500/30 via-champagne-400 to-champagne-500/30 rounded-full shadow-[0_0_8px_rgba(197,168,128,0.6)]" />
                   )}
                 </a>
               );
@@ -109,9 +109,9 @@ export default function Navbar({ onOpenResume }) {
           <div className="hidden md:flex items-center space-x-4">
             <button
               onClick={onOpenResume}
-              className="inline-flex items-center space-x-2 px-4 py-2 rounded text-xs font-mono tracking-wider uppercase border border-champagne-500/40 bg-champagne-500/10 text-champagne-300 hover:bg-champagne-500/20 hover:border-champagne-400 transition-all duration-300"
+              className="btn-luxury rounded text-xs font-mono tracking-wider uppercase border border-champagne-500/40 bg-champagne-500/10 text-champagne-300 hover:bg-champagne-500/20 hover:border-champagne-400 transition-all duration-300 px-4 py-2"
             >
-              <FileText className="w-3.5 h-3.5 text-champagne-400" />
+              <FileText className="w-3.5 h-3.5 text-champagne-400 mr-2 inline" />
               <span>{profileData.resume.actionLabel}</span>
             </button>
           </div>
@@ -138,7 +138,7 @@ export default function Navbar({ onOpenResume }) {
 
       {/* Mobile Drawer Menu */}
       <div 
-        className={`fixed inset-0 z-30 xl:hidden transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 z-50 xl:hidden transition-all duration-400 ease-out ${
           mobileMenuOpen 
             ? 'opacity-100 pointer-events-auto' 
             : 'opacity-0 pointer-events-none'
@@ -146,21 +146,27 @@ export default function Navbar({ onOpenResume }) {
       >
         {/* Backdrop */}
         <div 
-          className="absolute inset-0 bg-black/80 backdrop-blur-md"
+          className="absolute inset-0 bg-black/85 backdrop-blur-lg"
           onClick={() => setMobileMenuOpen(false)}
         />
 
         {/* Drawer Content */}
-        <div className="absolute right-0 top-0 bottom-0 w-full max-w-xs bg-obsidian-900 border-l border-obsidian-border p-6 pt-24 flex flex-col justify-between overflow-y-auto">
+        <div className="absolute right-0 top-0 bottom-0 w-full max-w-xs bg-obsidian-900 border-l border-obsidian-border p-6 pt-24 flex flex-col justify-between overflow-y-auto shadow-2xl">
           <div className="space-y-6">
-            <div className="border-b border-obsidian-border pb-4">
-              <span className="text-[11px] font-mono tracking-widest text-champagne-400 uppercase">
-                Navigation
+            <div className="border-b border-obsidian-border pb-4 flex items-center justify-between">
+              <span className="text-[11px] font-mono tracking-widest text-champagne-400 uppercase font-semibold">
+                Menu Navigation
               </span>
+              <button 
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-1 text-ivory-muted hover:text-ivory"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
             
             <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
+              {navLinks.map((link, idx) => (
                 <a
                   key={link.name}
                   href={link.href}
@@ -168,7 +174,10 @@ export default function Navbar({ onOpenResume }) {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
-                  className="font-mono text-sm tracking-widest uppercase text-ivory hover:text-champagne-400 transition-colors flex items-center justify-between py-1"
+                  className="font-mono text-sm tracking-widest uppercase text-ivory hover:text-champagne-300 transition-colors flex items-center justify-between py-1"
+                  style={{
+                    transitionDelay: `${idx * 25}ms`,
+                  }}
                 >
                   <span>{link.name}</span>
                   <span className="text-xs text-ivory-faint font-mono">→</span>
