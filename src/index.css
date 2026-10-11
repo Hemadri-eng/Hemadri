@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(197, 168, 128, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(197, 168, 128, 0.4);
+}
+
+/* Subtle background grain simulation */
+.grain-overlay {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Glass panel */
+.glass-panel {
+  background: rgba(15, 15, 21, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-panel-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(22, 22, 32, 0.82);
+  border-color: rgba(197, 168, 128, 0.25);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.5), 0 0 25px -5px rgba(197, 168, 128, 0.08);
+}
+
+/* Luxury button styling */
+.btn-luxury {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: #f4f3ec;
+  color: #09090c;
+  border: 1px solid #f4f3ec;
+}
+
+.btn-primary:hover {
+  background: #c5a880;
+  border-color: #c5a880;
+  color: #09090c;
+  box-shadow: 0 0 25px -5px rgba(197, 168, 128, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.03);
+  color: #e7e5dc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(197, 168, 128, 0.35);
+  color: #f4f3ec;
+}
+
+/* Subtle line divider */
+.editorial-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(197, 168, 128, 0.25), transparent);
+}
+
+/* Text glow */
+.champagne-glow {
+  text-shadow: 0 0 20px rgba(197, 168, 128, 0.2);
+}
